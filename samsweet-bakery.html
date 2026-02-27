@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>SamSweet Bakery - Homemade Desserts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            font-family: 'Quicksand', sans-serif;
+            color: #2d1b2e;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #fff5f7 0%, #ffe0ec 50%, #ffc0d9 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255, 182, 193, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(219, 112, 147, 0.1) 0%, transparent 50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .decoration {
+            position: fixed;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .decoration.cake1 {
+            top: 10%;
+            right: 5%;
+            font-size: 60px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .decoration.cake2 {
+            bottom: 15%;
+            left: 3%;
+            font-size: 50px;
+            animation: float 8s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+
+        .decoration.cake3 {
+            top: 50%;
+            right: 2%;
+            font-size: 45px;
+            animation: float 7s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            animation: slideDown 0.8s ease-out;
+            flex-shrink: 0;
+        }
+
+        .header-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            animation: slideInDown 0.8s ease-out;
+        }
+
+        .header-content {
+            text-align: center;
+        }
+
+        .store-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #d81b60, #880e4f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+            animation: slideDown 0.8s ease-out 0.2s both;
+        }
+
+        .store-type {
+            font-size: 16px;
+            color: #2d1b2e;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: slideDown 0.8s ease-out 0.3s both;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .featured {
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #2d1b2e;
+            text-align: center;
+            position: relative;
+            display: block;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #d81b60, #880e4f);
+            border-radius: 2px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 30px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 182, 193, 0.4);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .product-card:nth-child(1) { animation-delay: 0.5s; }
+        .product-card:nth-child(2) { animation-delay: 0.6s; }
+        .product-card:nth-child(3) { animation-delay: 0.7s; }
+        .product-card:nth-child(4) { animation-delay: 0.8s; }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(216, 27, 96, 0.2);
+            border-color: rgba(216, 27, 96, 0.3);
+        }
+
+        .product-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .product-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: #2d1b2e;
+            margin-bottom: 6px;
+        }
+
+        .product-desc {
+            font-size: 12px;
+            color: #8b5a7d;
+            line-height: 1.4;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .button-group {
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .buttons-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .buttons-container.full {
+            grid-template-columns: 1fr;
+        }
+
+        .btn {
+            padding: 14px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            white-space: nowrap;
+            min-height: 48px;
+            background: linear-gradient(135deg, #d81b60, #880e4f);
+            color: white;
+            box-shadow: 0 6px 20px rgba(216, 27, 96, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(216, 27, 96, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #d81b60, #880e4f);
+            color: white;
+            box-shadow: 0 6px 20px rgba(216, 27, 96, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(216, 27, 96, 0.4);
+        }
+
+        .btn-social {
+            background: linear-gradient(135deg, #d81b60, #880e4f);
+            color: white;
+            box-shadow: 0 6px 20px rgba(216, 27, 96, 0.3);
+        }
+
+        .btn-social:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(216, 27, 96, 0.4);
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #d81b60, #880e4f);
+            color: white;
+            border-radius: 12px;
+            padding: 14px 20px;
+            border: none;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 48px;
+            box-shadow: 0 6px 20px rgba(216, 27, 96, 0.3);
+        }
+
+        .contact-info:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(216, 27, 96, 0.4);
+        }
+
+        .contact-info:active {
+            transform: translateY(0);
+        }
+
+        .contact-info strong {
+            display: inline;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #8b5a7d;
+            font-size: 12px;
+            flex-shrink: 0;
+            animation: fadeInUp 1s ease-out 0.9s both;
+            border-top: 1px solid rgba(216, 27, 96, 0.1);
+        }
+
+        .footer-divider {
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d81b60, transparent);
+            margin: 15px auto;
+        }
+
+        .icon {
+            font-size: 18px;
+        }
+
+        @media (min-width: 768px) {
+            .header {
+                padding: 30px 20px;
+                gap: 25px;
+            }
+
+            .header-logo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .store-name {
+                font-size: 56px;
+            }
+
+            .store-type {
+                font-size: 18px;
+            }
+
+            .container {
+                max-width: 700px;
+                padding: 30px;
+                gap: 40px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .btn {
+                font-size: 15px;
+                padding: 16px 24px;
+                min-height: 50px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .header {
+                padding: 40px 20px;
+                gap: 30px;
+            }
+
+            .header-logo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .store-name {
+                font-size: 64px;
+            }
+
+            .store-type {
+                font-size: 20px;
+                letter-spacing: 3px;
+            }
+
+            .container {
+                max-width: 800px;
+                padding: 40px;
+                gap: 50px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+
+            .section-title {
+                font-size: 36px;
+                margin-bottom: 30px;
+            }
+
+            .btn {
+                font-size: 16px;
+                padding: 16px 28px;
+                min-height: 52px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 15px;
+                gap: 15px;
+            }
+
+            .header-logo {
+                width: 70px;
+                height: 70px;
+            }
+
+            .store-name {
+                font-size: 36px;
+            }
+
+            .store-type {
+                font-size: 14px;
+                letter-spacing: 1px;
+            }
+
+            .container {
+                padding: 15px;
+                gap: 20px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .section-title {
+                font-size: 22px;
+                margin-bottom: 15px;
+            }
+
+            .product-name {
+                font-size: 14px;
+            }
+
+            .product-desc {
+                font-size: 11px;
+            }
+
+            .btn {
+                font-size: 12px;
+                padding: 12px 16px;
+                min-height: 44px;
+                gap: 8px;
+            }
+
+            .icon {
+                font-size: 16px;
+            }
+
+            .contact-info {
+                padding: 12px 16px;
+                font-size: 12px;
+            }
+
+            .footer {
+                padding: 20px 15px;
+                font-size: 11px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .btn {
+                min-height: 48px;
+                padding: 14px 20px;
+            }
+
+            .product-card:active {
+                transform: translateY(-4px);
+            }
+
+            .btn:active {
+                opacity: 0.9;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="decoration cake1">🍰</div>
+    <div class="decoration cake2">🎂</div>
+    <div class="decoration cake3">🧁</div>
+
+    <div class="wrapper">
+        <div class="header">
+            <div class="header-content">
+                <div class="store-name">SamSweet</div>
+                <div class="store-type">Bakery</div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="featured">
+                <h2 class="section-title">Our Specialties</h2>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-icon">🍰</div>
+                        <div class="product-name">Custom Cakes</div>
+                        <div class="product-desc">Made fresh for your special occasions</div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-icon">🧁</div>
+                        <div class="product-name">Cupcakes</div>
+                        <div class="product-desc">Delicious assorted flavors</div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-icon">🍪</div>
+                        <div class="product-name">Cookies</div>
+                        <div class="product-desc">Freshly baked daily</div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-icon">🥐</div>
+                        <div class="product-name">Pastries</div>
+                        <div class="product-desc">Buttery and flaky goodness</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <div class="buttons-container full">
+                    <a href="https://wa.me/18434460160" class="btn">
+                        <span class="icon">💬</span> WhatsApp
+                    </a>
+                </div>
+
+                <div class="buttons-container full">
+                    <a href="tel:+18434460160" class="btn">
+                        <span class="icon">☎️</span> Call Now
+                    </a>
+                </div>
+
+                <div class="buttons-container full">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Myrtle+Beach,+SC" target="_blank" class="btn">
+                        <span class="icon">📍</span> Myrtle Beach, SC
+                    </a>
+                </div>
+
+                <div class="buttons-container full">
+                    <a href="https://www.instagram.com/samsweet2025/" target="_blank" class="btn">
+                        <span class="icon">📸</span> Instagram
+                    </a>
+                </div>
+
+                <div class="buttons-container full">
+                    <a href="https://www.tiktok.com/@samkamal16?_r=1&_t=ZT-94GAmKFBMly" target="_blank" class="btn">
+                        <span class="icon">🎵</span> TikTok
+                    </a>
+                </div>
+
+                <div class="buttons-container full">
+                    <a href="https://www.facebook.com/share/1BwL7ggmmM/?mibextid=wwXIfr" target="_blank" class="btn">
+                        <span class="icon">f</span> Facebook
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-divider"></div>
+            <p>Made with ❤️ in Myrtle Beach, SC</p>
+            <p style="margin-top: 8px;">© 2025 SamSweet Bakery • All Orders Made Fresh</p>
+        </div>
+    </div>
+</body>
+</html>
